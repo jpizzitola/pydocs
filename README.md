@@ -1,32 +1,72 @@
-# pydocs
-autodocs to work with jenkins job
+# Python-Jinja .docx templater
 
-used python 3.9.5
----------------------------------
-{%....%}  block for statements
+Planning to use this with jenkins to autogen documentation for B1 B8R
 
-{{....}}  expressions used to print to template output
+## Tech
 
-{#....#} block expressions comments that are not included in the template output
+Python libraries:
 
-#....## block used as line statements
+- [jinja2] - HTML enhanced for web apps!
+- [docx] - Library used for creating word documents.
+- [docxtpl] - Generate documents using word documents as jinja templates.
 
-------------------------------------
 
-https://blog.formpl.us/how-to-generate-word-documents-from-templates-using-python-cb039ea2c890
-Generation example code used:
-https://github.com/Vnessah/docx-gen
+## Installation
 
-----------------------------------------------
-                    EXAMPLE
-----------------------------------------------
-Needed for word document output
+Requires [python](https://www.python.org/downloads/release/python-390/)  to run.
 
-----------------------------------------------
+Install the dependencies:
+
+```sh
 py -m pip install jinja2
 py -m pip install docx
 py -m pip install docxtpl
-----------------------------------------------
-python-docx. This is a very powerful library used for creating word documents with basically all the elements you need — images, header, footer, page breaks, etc. While this library is great for creating docx files, it’s not very good at modifying them. We need this library in order to set the dimensions of any image we might add to the document, as you will see later on.
+```
 
-python-docx-template. This library is designed to generate documents using word documents as jinja templates. It makes slotting in custom values into a word document a lot easier. You can find more information in this article on library documentation here.
+## Configuration
+
+There are a few variables in config.py that tell the script where your template is and where to place the generated file. These can be overwritten from command line.
+
+| Variable | About | Example | Override Flag|
+| ------ | ------ | ------ | ------ |
+| templateFile | Location of the template file Jinja will use to generate new document from | "./template/test_template.docx" | -t
+| saveFile | Location and name the script will save the generated document(will append .docx to the filename) | "./generated-doc/generated_doc" | -s
+| context | Location of json file with values the script will replace your template variables with. ('variable':"replacementvalue") | "./context.json" | -c
+
+
+## Usage
+
+Generate document from template(variables defined in config.py):
+
+```sh
+py main.py
+```
+
+Generate document from other template file:
+```sh
+py main.py -t "./template/other_test_template.docx"
+```
+Generate document to other save file:
+```sh
+py main.py -s "./generated-doc/other-save-file"
+```
+Generate document using other json file with defined value replacements:
+```sh
+py main.py -c "./othercontext.json"
+```
+
+## Template Expressions
+```sh
+{%....%}  block for statements
+----------------------------------------------------
+{{....}}  expressions used to print to template output
+----------------------------------------------------
+{#....#} block expressions comments that are not included in the template output
+----------------------------------------------------
+#....## block used as line statements
+```
+
+   [docxtpl]: <https://pypi.org/project/docxtpl/>
+   [docx]: <https://pypi.org/project/docx/>
+   [jinja2]: <https://pypi.org/project/Jinja2/>
+   
