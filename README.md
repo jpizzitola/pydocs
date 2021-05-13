@@ -1,7 +1,7 @@
 # Python-Jinja .docx templater
 
 Planning to use this with jenkins to autogen documentation for B1 B8R
-
+Generates a new docx file based off a template using Python and Jinja
 ## Tech
 
 Python libraries:
